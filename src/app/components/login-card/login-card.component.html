@@ -1,18 +1,34 @@
 <mat-card class="p-30 mat-elevation-z3">
   <mat-card-title class="light mb-30"> Login </mat-card-title>
   <mat-card-content>
-    <form>
+    <form [formGroup]="loginForm" (submit)="login()">
       <mat-form-field class="w-100">
         <mat-label>Password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" autocomplete="off" />
-        <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
+        <input
+          matInput
+          formControlName="password"
+          [type]="hide ? 'password' : 'text'"
+          autocomplete="off"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [disabled]="isLoading"
+        >
           <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
         <mat-hint>Your name is your password.</mat-hint>
+        <mat-error *ngIf="loginForm?.get('password')?.hasError('required')">
+          Password is required.
+        </mat-error>
       </mat-form-field>
+      <div align="end" class="mt-20">
+        <button mat-raised-button color="primary" (click)="login()" [disabled]="isLoading">
+          OK
+        </button>
+      </div>
     </form>
   </mat-card-content>
-  <mat-card-actions align="end">
-    <button mat-raised-button type="button" color="primary">OK</button>
-  </mat-card-actions>
 </mat-card>
