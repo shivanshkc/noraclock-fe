@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -19,6 +20,7 @@ import { MemoriesComponent } from './pages/memories/memories.component';
 import { MemoryComponent } from './pages/memory/memory.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginCardComponent } from './components/login-card/login-card.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { LoginCardComponent } from './components/login-card/login-card.component
     MemoryComponent,
     NavbarComponent,
     LoginCardComponent,
+    ProgressBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,7 @@ import { LoginCardComponent } from './components/login-card/login-card.component
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

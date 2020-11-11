@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-login-card',
@@ -10,7 +11,7 @@ export class LoginCardComponent implements OnInit {
   public loginForm: FormGroup;
   public isLoading = false;
 
-  constructor(private formBuiler: FormBuilder) {
+  constructor(private formBuiler: FormBuilder, private loader: LoadingService) {
     this.loginForm = this.formBuiler.group({
       password: ['', Validators.required],
     });
