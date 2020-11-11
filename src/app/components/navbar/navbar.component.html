@@ -5,8 +5,16 @@
   </a>
   <span class="spacer"></span>
 
-  <button mat-flat-button color="accent" routerLink="/memories">Memories</button>
-  <button class="ml-5" mat-icon-button color="accent">
+  <button mat-flat-button color="accent" routerLink="/memories" *ngIf="auth.isLoggedIn()">
+    Memories
+  </button>
+  <button
+    class="ml-5"
+    mat-icon-button
+    color="accent"
+    *ngIf="auth.isLoggedIn()"
+    (click)="auth.logout()"
+  >
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>
