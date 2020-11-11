@@ -18,6 +18,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { MemoriesComponent } from './pages/memories/memories.component';
 import { MemoryComponent } from './pages/memory/memory.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginCardComponent } from './components/login-card/login-card.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MemoriesComponent,
     MemoryComponent,
     NavbarComponent,
+    LoginCardComponent,
   ],
   imports: [
     BrowserModule,
