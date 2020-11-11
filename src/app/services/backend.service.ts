@@ -15,12 +15,7 @@ const customCodes = {
   providedIn: 'root',
 })
 export class BackendService {
-  constructor(
-    private http: HttpClient,
-    private auth: AuthService,
-    private alert: AlertService,
-    private router: Router,
-  ) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   public async getNoraTime(password: string): Promise<any> {
     await this.sleep(2);
@@ -41,7 +36,6 @@ export class BackendService {
       const customCode = this.getCustomCode(err);
       if (customCode === customCodes.UNAUTHORIZED) {
         this.auth.logout();
-        this.router.navigate(['/login']);
         throw new Error('Invalid Password.');
       }
       throw unexpectedError;

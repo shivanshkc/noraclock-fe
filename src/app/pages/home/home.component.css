@@ -1,0 +1,21 @@
+:host {
+  height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 599px) {
+  :host {
+    height: calc(100vh - 56px);
+  }
+}
+
+.title {
+  font-weight: lighter;
+  margin-bottom: 30px;
+  font-size: medium;
+}
+
+.time {
+  text-align: center;
+  font-weight: lighter;
+}
