@@ -1,0 +1,25 @@
+:host {
+  height: calc(100vh - 64px);
+}
+
+@media only screen and (max-width: 599px) {
+  :host {
+    height: calc(100vh - 56px);
+  }
+}
+
+.p-30 {
+  padding: 30px;
+}
+
+.light {
+  font-weight: lighter;
+}
+
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.w-100 {
+  width: 100%;
+}
