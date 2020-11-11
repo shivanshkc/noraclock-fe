@@ -1,0 +1,6 @@
+{
+  "api": {
+    "address": "http://localhost:9600",
+    "time": "api/noraAccess/time"
+  }
+}

@@ -17,6 +17,10 @@ export class AuthService {
     return localStorage.getItem(this.passwordKey);
   }
 
+  public setPassword(password: string): void {
+    localStorage.setItem(this.passwordKey, password);
+  }
+
   public logout(): void {
     localStorage.removeItem(this.passwordKey);
     this.router.navigate(['/login']);

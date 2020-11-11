@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -21,6 +23,7 @@ import { MemoryComponent } from './pages/memory/memory.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { AlertSnackbarComponent } from './components/alert-snackbar/alert-snackbar.component';
 
 @NgModule({
   declarations: [
@@ -32,11 +35,14 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
     NavbarComponent,
     LoginCardComponent,
     ProgressBarComponent,
+    AlertSnackbarComponent,
   ],
+  entryComponents: [AlertSnackbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
@@ -47,6 +53,7 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
     MatFormFieldModule,
     MatInputModule,
     MatProgressBarModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
