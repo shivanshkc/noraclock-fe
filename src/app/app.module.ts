@@ -17,6 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -28,6 +29,7 @@ import { LoginCardComponent } from './components/login-card/login-card.component
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { AlertSnackbarComponent } from './components/alert-snackbar/alert-snackbar.component';
 import { LoadingHeaderComponent } from './components/loading-header/loading-header.component';
+import { NewMemoryDialogComponent } from './components/new-memory-dialog/new-memory-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +43,9 @@ import { LoadingHeaderComponent } from './components/loading-header/loading-head
     ProgressBarComponent,
     AlertSnackbarComponent,
     LoadingHeaderComponent,
+    NewMemoryDialogComponent,
   ],
-  entryComponents: [AlertSnackbarComponent],
+  entryComponents: [AlertSnackbarComponent, NewMemoryDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -62,6 +65,7 @@ import { LoadingHeaderComponent } from './components/loading-header/loading-head
     MatProgressSpinnerModule,
     MatTableModule,
     MatPaginatorModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

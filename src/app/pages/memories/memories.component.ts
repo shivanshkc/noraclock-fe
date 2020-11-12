@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NewMemoryDialogComponent } from 'src/app/components/new-memory-dialog/new-memory-dialog.component';
 import { AlertService } from 'src/app/services/alert.service';
 import { BackendService } from 'src/app/services/backend.service';
 
@@ -22,6 +24,7 @@ export class MemoriesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private alert: AlertService,
+    private dialog: MatDialog,
     private backend: BackendService,
   ) {}
 
@@ -73,6 +76,15 @@ export class MemoriesComponent implements OnInit {
   applySearch(searchValue: string) {
     this.dataSource.filter = searchValue.trim().toLowerCase();
   }
+
+  async onNewClick(): Promise<void> {
+    this.dialog.open(NewMemoryDialogComponent, {
+      width: '400px',
+      data: { action: (title: string) => this.createMemory(title) },
+    });
+  }
+
+  async createMemory(title: string): Promise<void> {}
 
   async getQueries(): Promise<{ [key: string]: string }> {
     return new Promise((resolve) => {
