@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -24,6 +25,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { AlertSnackbarComponent } from './components/alert-snackbar/alert-snackbar.component';
+import { LoadingHeaderComponent } from './components/loading-header/loading-header.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { AlertSnackbarComponent } from './components/alert-snackbar/alert-snackb
     LoginCardComponent,
     ProgressBarComponent,
     AlertSnackbarComponent,
+    LoadingHeaderComponent,
   ],
   entryComponents: [AlertSnackbarComponent],
   imports: [
@@ -54,6 +57,7 @@ import { AlertSnackbarComponent } from './components/alert-snackbar/alert-snackb
     MatInputModule,
     MatProgressBarModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

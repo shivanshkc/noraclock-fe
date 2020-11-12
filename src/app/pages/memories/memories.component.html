@@ -1,1 +1,13 @@
-<p>memories works!</p>
+<div fxFlex fxLayout="row" class="mt-10">
+  <div fxFlex="0" fxFlex.md="0" fxFlex.sm="0" fxFlex.xs="1"></div>
+  <div fxFlex="1000px" fxFlex.md="700px" fxFlex.sm="600px" fxFlex.xs="98">
+    <app-loading-header [isLoading]="true" value="Memories"></app-loading-header>
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+      <mat-form-field fxFlex="95">
+        <input matInput placeholder="Search" autocomplete="off" />
+      </mat-form-field>
+      <button mat-raised-button color="accent" fxFlex="5">New</button>
+    </div>
+  </div>
+  <div fxFlex="0" fxFlex.md="0" fxFlex.sm="0" fxFlex.xs="1"></div>
+</div>
