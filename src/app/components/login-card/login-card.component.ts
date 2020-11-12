@@ -49,6 +49,7 @@ export class LoginCardComponent implements OnInit {
       this.auth.setPassword(password);
 
       this.router.navigate(['/home']);
+      this.alert.info('Login successful.');
     } catch (err) {
       this.alert.error(err.message);
     }

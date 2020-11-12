@@ -66,6 +66,26 @@ export class BackendService {
     }
   }
 
+  public async createMemory(title: string, body: string): Promise<any> {
+    await this.sleep(2);
+
+    const endpoint = `${configs.api.address}/${configs.api.memory}`;
+    const password = this.auth.getPassword();
+
+    try {
+      return await this.http
+        .post(endpoint, { title, body }, { headers: { 'x-password': password } })
+        .toPromise();
+    } catch (err) {
+      const customCode = this.getCustomCode(err);
+      if (customCode === customCodes.UNAUTHORIZED) {
+        this.auth.logout();
+        throw new Error('Invalid Password.');
+      }
+      throw unexpectedError;
+    }
+  }
+
   private getCustomCode(err: HttpErrorResponse): string {
     const customCode = err.error && err.error.customCode;
 

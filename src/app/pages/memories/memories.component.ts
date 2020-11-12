@@ -84,7 +84,25 @@ export class MemoriesComponent implements OnInit {
     });
   }
 
-  async createMemory(title: string): Promise<void> {}
+  async createMemory(title: string): Promise<void> {
+    if (this.isLoading) {
+      return;
+    }
+
+    this.isLoading = true;
+
+    try {
+      await this.backend.createMemory(title, '');
+      this.alert.success('Memory created.');
+
+      this.dataSource.data.push({ index: this.dataSource.data.length + 1, title, age: new Date() });
+      this.dataSource.data = this.dataSource.data;
+    } catch (err) {
+      this.alert.error(err.message);
+    }
+
+    this.isLoading = false;
+  }
 
   async getQueries(): Promise<{ [key: string]: string }> {
     return new Promise((resolve) => {

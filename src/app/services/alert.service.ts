@@ -8,12 +8,16 @@ import { AlertSnackbarComponent } from '../components/alert-snackbar/alert-snack
 export class AlertService {
   constructor(private snackbar: MatSnackBar) {}
 
+  public success(message: string): void {
+    this.alert(message, 'favorite', 'accent');
+  }
+
   public info(message: string): void {
     this.alert(message, 'info', 'primary');
   }
 
   public error(message: string): void {
-    this.alert(message, 'error', 'warn');
+    this.alert(message, 'sick', 'warn');
   }
 
   private alert(message: string, iconName: string, color: string): void {
