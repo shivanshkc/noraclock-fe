@@ -1,1 +1,44 @@
-<p>memory works!</p>
+<div fxFlex fxLayout="row" class="mt-30 mb-40">
+  <div fxFlex="0" fxFlex.md="0" fxFlex.sm="0" fxFlex.xs="1"></div>
+  <div fxFlex="1000px" fxFlex.md="700px" fxFlex.sm="600px" fxFlex.xs="98">
+    <form [formGroup]="memoryForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input [readonly]="!tEdit" matInput formControlName="title" autocomplete="off" />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          [disabled]="isLoading"
+          (click)="tEdit = !tEdit"
+          [color]="tEdit ? 'accent' : ''"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <mat-error *ngIf="memoryForm?.get('title').hasError('required')"
+          >Title is required.</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Story</mat-label>
+        <textarea [readonly]="!bEdit" matInput formControlName="body" autocomplete="off">
+        </textarea>
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          [disabled]="isLoading"
+          (click)="bEdit = !bEdit"
+          [color]="bEdit ? 'accent' : ''"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-form-field>
+      <div align="end">
+        <button mat-raised-button color="primary" class="mr-5">Update</button>
+        <button mat-raised-button color="warn">Delete</button>
+      </div>
+    </form>
+  </div>
+  <div fxFlex="0" fxFlex.md="0" fxFlex.sm="0" fxFlex.xs="1"></div>
+</div>

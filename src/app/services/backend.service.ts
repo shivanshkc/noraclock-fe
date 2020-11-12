@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import * as configs from '../../assets/configs.json';
 import { AuthService } from './auth.service';
+import { memory } from 'console';
 
 const unexpectedError = new Error('Please try again later.');
 
 const customCodes = {
   UNAUTHORIZED: 'UNAUTHORIZED',
+  MEMORY_NOT_FOUND: 'MEMORY_NOT_FOUND',
 };
 
 @Injectable({
@@ -36,6 +38,7 @@ export class BackendService {
         this.auth.logout();
         throw new Error('Invalid Password.');
       }
+      console.error('Unexpected error from backend:', err);
       throw unexpectedError;
     }
   }
@@ -62,6 +65,37 @@ export class BackendService {
         this.auth.logout();
         throw new Error('Invalid Password.');
       }
+      console.error('Unexpected error from backend:', err);
+      throw unexpectedError;
+    }
+  }
+
+  public async getMemoryByID(memoryID: string): Promise<any> {
+    await this.sleep(2);
+
+    const endpoint = `${configs.api.address}/${configs.api.memory}/${memoryID}`;
+    const password = this.auth.getPassword();
+
+    try {
+      const response: any = await this.http
+        .get(endpoint, { headers: { 'x-password': password } })
+        .toPromise();
+
+      if (!response || !response.data) {
+        throw unexpectedError;
+      }
+
+      return response;
+    } catch (err) {
+      const customCode = this.getCustomCode(err);
+      if (customCode === customCodes.UNAUTHORIZED) {
+        this.auth.logout();
+        throw new Error('Invalid Password.');
+      }
+      if (customCode === customCodes.MEMORY_NOT_FOUND) {
+        throw new Error('Memory not found.');
+      }
+      console.error('Unexpected error from backend:', err);
       throw unexpectedError;
     }
   }
@@ -82,6 +116,7 @@ export class BackendService {
         this.auth.logout();
         throw new Error('Invalid Password.');
       }
+      console.error('Unexpected error from backend:', err);
       throw unexpectedError;
     }
   }
