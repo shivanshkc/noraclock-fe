@@ -30,6 +30,7 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 import { AlertSnackbarComponent } from './components/alert-snackbar/alert-snackbar.component';
 import { LoadingHeaderComponent } from './components/loading-header/loading-header.component';
 import { NewMemoryDialogComponent } from './components/new-memory-dialog/new-memory-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +45,9 @@ import { NewMemoryDialogComponent } from './components/new-memory-dialog/new-mem
     AlertSnackbarComponent,
     LoadingHeaderComponent,
     NewMemoryDialogComponent,
+    ConfirmDialogComponent,
   ],
-  entryComponents: [AlertSnackbarComponent, NewMemoryDialogComponent],
+  entryComponents: [AlertSnackbarComponent, NewMemoryDialogComponent, ConfirmDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
