@@ -51,7 +51,12 @@ export class MemoriesComponent implements OnInit {
       this.paginator.length = results.data.count;
 
       const data = results.data.docs.map((entry, index) => {
-        return { index: offset + index + 1, title: entry.title, age: new Date(entry.createdAt) };
+        return {
+          id: entry.id,
+          index: offset + index + 1,
+          title: entry.title,
+          age: new Date(entry.createdAt),
+        };
       });
 
       this.paginator.pageIndex = offset / limit;

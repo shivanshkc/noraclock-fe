@@ -36,7 +36,7 @@ export class MemoryComponent implements OnInit {
       return;
     }
 
-    this.loader.addLoader();
+    this.setLoading(true);
 
     try {
       const results = await this.backend.getMemoryByID(memoryID);
@@ -47,7 +47,7 @@ export class MemoryComponent implements OnInit {
       this.alert.error(err.message);
     }
 
-    this.loader.removeLoader();
+    this.setLoading(false);
   }
 
   async getMemoryID(): Promise<string> {
@@ -56,5 +56,16 @@ export class MemoryComponent implements OnInit {
         resolve(params.memoryID);
       });
     });
+  }
+
+  private setLoading(state: boolean): void {
+    if (state) {
+      this.loader.addLoader();
+      this.tEdit = false;
+      this.bEdit = false;
+      return;
+    }
+
+    this.loader.removeLoader();
   }
 }
