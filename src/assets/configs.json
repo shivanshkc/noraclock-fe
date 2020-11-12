@@ -2,5 +2,12 @@
   "api": {
     "address": "http://localhost:9600",
     "time": "api/noraAccess/time"
+  },
+  "data": {
+    "phrases": [
+      "The clock goes ever on and on...",
+      "The Eyes of My Mistress...",
+      "You have made me so, my love."
+    ]
   }
 }
