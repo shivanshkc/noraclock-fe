@@ -50,6 +50,14 @@ export class MemoryComponent implements OnInit {
     this.setLoading(false);
   }
 
+  async updateMemory(): Promise<void> {
+    console.log('Update!');
+  }
+
+  async deleteMemory(): Promise<void> {
+    console.log('Delete!');
+  }
+
   async getMemoryID(): Promise<string> {
     return new Promise((resolve) => {
       this.router.params.subscribe((params) => {
