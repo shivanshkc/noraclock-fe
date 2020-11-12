@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NewMemoryDialogComponent } from 'src/app/components/new-memory-dialog/new-memory-dialog.component';
 import { AlertService } from 'src/app/services/alert.service';
 import { BackendService } from 'src/app/services/backend.service';
@@ -21,8 +20,6 @@ export class MemoriesComponent implements OnInit {
   public dataSource = new MatTableDataSource<any>([]);
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private alert: AlertService,
     private dialog: MatDialog,
     private backend: BackendService,
@@ -32,25 +29,17 @@ export class MemoriesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
 
     this.paginator.page.subscribe(() => this.onPageEvent());
-
-    setTimeout(() => {
-      this.route.queryParams.subscribe((_) => this.loadTable());
-    }, 0);
+    setTimeout(() => this.onPageEvent(), 0);
   }
 
   async onPageEvent(): Promise<void> {
     const limit = this.paginator.pageSize;
     const offset = this.paginator.pageIndex * this.paginator.pageSize;
 
-    this.router.navigate([], { queryParams: { limit, offset } });
+    this.loadTable(limit, offset);
   }
 
-  async loadTable(): Promise<void> {
-    const queries = await this.getQueries();
-
-    const limit = Math.abs(parseInt(queries.limit, 10)) || 10;
-    const offset = Math.abs(parseInt(queries.offset, 10)) || 0;
-
+  async loadTable(limit: number, offset: number): Promise<void> {
     this.isLoading = true;
 
     try {
@@ -62,9 +51,10 @@ export class MemoriesComponent implements OnInit {
       this.paginator.length = results.data.count;
 
       const data = results.data.docs.map((entry, index) => {
-        return { index: index + 1, title: entry.title, age: new Date(entry.createdAt) };
+        return { index: offset + index + 1, title: entry.title, age: new Date(entry.createdAt) };
       });
 
+      this.paginator.pageIndex = offset / limit;
       this.dataSource = new MatTableDataSource(data);
     } catch (err) {
       this.alert.error(err.message);
@@ -93,22 +83,13 @@ export class MemoriesComponent implements OnInit {
 
     try {
       await this.backend.createMemory(title, '');
-      this.alert.success('Memory created.');
+      this.alert.success('Memory created. Reloading...');
 
-      this.dataSource.data.push({ index: this.dataSource.data.length + 1, title, age: new Date() });
-      this.dataSource.data = this.dataSource.data;
+      await this.onPageEvent();
     } catch (err) {
       this.alert.error(err.message);
     }
 
     this.isLoading = false;
-  }
-
-  async getQueries(): Promise<{ [key: string]: string }> {
-    return new Promise((resolve) => {
-      this.route.queryParams.subscribe((params) => {
-        resolve(params);
-      });
-    });
   }
 }
