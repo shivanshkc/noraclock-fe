@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
+import { BackendService } from 'src/app/services/backend.service';
 
 @Component({
   selector: 'app-memories',
@@ -13,22 +16,69 @@ export class MemoriesComponent implements OnInit {
   public isLoading = false;
   public displayedColumns: string[] = ['index', 'title', 'age'];
 
-  public dataSource = new MatTableDataSource<any>([
-    { index: 1, title: 'Something', age: new Date() },
-    { index: 2, title: 'Another', age: new Date() },
-    { index: 3, title: 'Right', age: new Date() },
-    { index: 4, title: 'Okay', age: new Date() },
-    { index: 5, title: 'Cool', age: new Date() },
-    { index: 6, title: 'Write', age: new Date() },
-  ]);
+  public dataSource = new MatTableDataSource<any>([]);
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private alert: AlertService,
+    private backend: BackendService,
+  ) {}
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+
+    this.paginator.page.subscribe(() => this.onPageEvent());
+
+    setTimeout(() => {
+      this.route.queryParams.subscribe((_) => this.loadTable());
+    }, 0);
+  }
+
+  async onPageEvent(): Promise<void> {
+    const limit = this.paginator.pageSize;
+    const offset = this.paginator.pageIndex * this.paginator.pageSize;
+
+    this.router.navigate([], { queryParams: { limit, offset } });
+  }
+
+  async loadTable(): Promise<void> {
+    const queries = await this.getQueries();
+
+    const limit = Math.abs(parseInt(queries.limit, 10)) || 10;
+    const offset = Math.abs(parseInt(queries.offset, 10)) || 0;
+
+    this.isLoading = true;
+
+    try {
+      const results = await this.backend.getMemories({ limit, offset, skipBody: true });
+      if (!results.data.docs || results.data.docs.length === 0) {
+        throw new Error('No memories found.');
+      }
+
+      this.paginator.length = results.data.count;
+
+      const data = results.data.docs.map((entry, index) => {
+        return { index: index + 1, title: entry.title, age: new Date(entry.createdAt) };
+      });
+
+      this.dataSource = new MatTableDataSource(data);
+    } catch (err) {
+      this.alert.error(err.message);
+    }
+
+    this.isLoading = false;
   }
 
   applySearch(searchValue: string) {
     this.dataSource.filter = searchValue.trim().toLowerCase();
+  }
+
+  async getQueries(): Promise<{ [key: string]: string }> {
+    return new Promise((resolve) => {
+      this.route.queryParams.subscribe((params) => {
+        resolve(params);
+      });
+    });
   }
 }

@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import * as configs from '../../assets/configs.json';
 import { AuthService } from './auth.service';
-import { AlertService } from './alert.service';
-import { Router } from '@angular/router';
 
 const unexpectedError = new Error('Please try again later.');
 
@@ -28,6 +26,32 @@ export class BackendService {
         .toPromise();
 
       if (!response || !response.time) {
+        throw unexpectedError;
+      }
+
+      return response;
+    } catch (err) {
+      const customCode = this.getCustomCode(err);
+      if (customCode === customCodes.UNAUTHORIZED) {
+        this.auth.logout();
+        throw new Error('Invalid Password.');
+      }
+      throw unexpectedError;
+    }
+  }
+
+  public async getMemories(queries: { [key: string]: any }): Promise<any> {
+    await this.sleep(2);
+
+    const endpoint = `${configs.api.address}/${configs.api.memory}`;
+    const password = this.auth.getPassword();
+
+    try {
+      const response: any = await this.http
+        .get(endpoint, { headers: { 'x-password': password }, params: queries })
+        .toPromise();
+
+      if (!response || !response.data) {
         throw unexpectedError;
       }
 
