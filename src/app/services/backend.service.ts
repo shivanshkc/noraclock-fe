@@ -145,6 +145,28 @@ export class BackendService {
     }
   }
 
+  public async deleteMemory(memoryID: string): Promise<any> {
+    await this.sleep(2);
+
+    const endpoint = `${configs.api.address}/${configs.api.memory}/${memoryID}`;
+    const password = this.auth.getPassword();
+
+    try {
+      return await this.http.delete(endpoint, { headers: { 'x-password': password } }).toPromise();
+    } catch (err) {
+      const customCode = this.getCustomCode(err);
+      if (customCode === customCodes.UNAUTHORIZED) {
+        this.auth.logout();
+        throw new Error('Invalid Password.');
+      }
+      if (customCode === customCodes.MEMORY_NOT_FOUND) {
+        throw new Error('No such memory found.');
+      }
+      console.error('Unexpected error from backend:', err);
+      throw unexpectedError;
+    }
+  }
+
   private getCustomCode(err: HttpErrorResponse): string {
     const customCode = err.error && err.error.customCode;
 
