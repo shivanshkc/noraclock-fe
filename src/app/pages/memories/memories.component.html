@@ -48,6 +48,7 @@
           mat-row
           *matRowDef="let row; columns: displayedColumns"
           [routerLink]="'/memory/' + row.id"
+          class="clickable"
         ></tr>
       </table>
 

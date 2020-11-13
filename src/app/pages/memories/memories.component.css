@@ -19,7 +19,7 @@ td {
   white-space: nowrap;
 }
 
-tr:hover {
+.clickable:hover {
   background: #b4b4b433;
   cursor: pointer;
 }
