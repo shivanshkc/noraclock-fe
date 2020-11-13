@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { memory } from 'console';
 import { AlertService } from 'src/app/services/alert.service';
 import { BackendService } from 'src/app/services/backend.service';
 import { LoadingService } from 'src/app/services/loading.service';
@@ -51,7 +52,28 @@ export class MemoryComponent implements OnInit {
   }
 
   async updateMemory(): Promise<void> {
-    console.log('Update!');
+    if (this.loader.isLoading()) {
+      return;
+    }
+    if (this.memoryForm.invalid) {
+      return;
+    }
+
+    this.tEdit = false;
+    this.bEdit = false;
+    this.loader.addLoader();
+
+    const memoryID = await this.getMemoryID();
+    const { title, body } = this.memoryForm.value;
+
+    try {
+      await this.backend.updateMemory(memoryID, { title, body });
+      this.alert.info('Memory updated.');
+    } catch (err) {
+      this.alert.error(err.message);
+    }
+
+    this.loader.removeLoader();
   }
 
   async deleteMemory(): Promise<void> {
