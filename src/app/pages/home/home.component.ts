@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscriber, Subscription } from 'rxjs';
 import * as moment from 'moment';
 import 'moment-precise-range-plugin';
@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private durationObserver: Observable<void>;
   private subscription: Subscription;
 
+  public cardHeight = '0px';
   public phrase = configs.data.phrases[Math.floor(Math.random() * configs.data.phrases.length)];
 
   public year = 0;
@@ -42,6 +43,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private time: TimeService, private auth: AuthService, private alert: AlertService) {}
 
   ngOnInit() {
+    setTimeout(() => this.onResize(), 0);
+
     const time = this.time.getTime();
 
     if (!this.isTimeValid()) {
@@ -85,5 +88,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    const year = document.getElementById('year-card');
+    this.cardHeight = `${year.clientWidth}px`;
   }
 }
