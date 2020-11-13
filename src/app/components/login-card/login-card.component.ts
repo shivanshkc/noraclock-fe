@@ -14,6 +14,7 @@ import { TimeService } from 'src/app/services/time.service';
   styleUrls: ['./login-card.component.css'],
 })
 export class LoginCardComponent implements OnInit {
+  public hide = true;
   public loginForm: FormGroup;
   public isLoading = false;
 

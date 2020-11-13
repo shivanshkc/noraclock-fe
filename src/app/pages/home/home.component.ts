@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private time: TimeService, private auth: AuthService, private alert: AlertService) {}
 
   ngOnInit() {
-    setTimeout(() => this.onResize(), 0);
+    setTimeout(() => this.onResize(null), 0);
 
     const time = this.time.getTime();
 
@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize() {
+  onResize(event: Event) {
     const year = document.getElementById('year-card');
     this.cardHeight = `${year.clientWidth}px`;
   }

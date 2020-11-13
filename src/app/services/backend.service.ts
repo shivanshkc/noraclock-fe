@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import * as configs from '../../assets/configs.json';
 import { AuthService } from './auth.service';
-import { memory } from 'console';
 
 const unexpectedError = new Error('Please try again later.');
 

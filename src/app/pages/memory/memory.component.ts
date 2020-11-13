@@ -19,10 +19,10 @@ export class MemoryComponent implements OnInit {
   public bEdit = false;
 
   constructor(
+    public loader: LoadingService,
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private alert: AlertService,
-    private loader: LoadingService,
     private backend: BackendService,
     private location: Location,
     private dialog: MatDialog,
