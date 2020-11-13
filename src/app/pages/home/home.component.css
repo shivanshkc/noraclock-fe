@@ -1,6 +1,7 @@
 :host {
   height: calc(100vh - 64px);
   overflow: hidden;
+  background-image: url('../../../assets/mountains.jpg');
 }
 
 .fader {
@@ -8,13 +9,18 @@
   text-align: center;
   width: 100%;
   margin-top: 15vh;
-  font-size: calc(2vw + 10px);
+  font-size: calc(2vw + 15px);
   font-weight: lighter;
+  color: gray;
 }
 
 @media only screen and (max-width: 599px) {
   :host {
     height: calc(100vh - 56px);
+  }
+
+  .fader {
+    font-weight: normal;
   }
 }
 
