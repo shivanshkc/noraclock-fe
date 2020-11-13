@@ -88,7 +88,7 @@ export class MemoriesComponent implements OnInit {
 
     try {
       await this.backend.createMemory(title, '');
-      this.alert.success('Memory created. Reloading...');
+      this.alert.success('Memory created.');
 
       await this.onPageEvent();
     } catch (err) {
