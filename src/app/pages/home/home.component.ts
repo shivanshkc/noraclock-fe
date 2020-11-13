@@ -33,12 +33,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   public cardHeight = '0px';
   public phrase = configs.data.phrases[Math.floor(Math.random() * configs.data.phrases.length)];
 
-  public year = 0;
-  public month = 0;
-  public day = 0;
-  public hour = 0;
-  public minute = 0;
-  public second = 0;
+  public year = '0';
+  public month = '0';
+  public day = '0';
+  public hour = '0';
+  public minute = '0';
+  public second = '0';
 
   constructor(private time: TimeService, private auth: AuthService, private alert: AlertService) {}
 
@@ -61,12 +61,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscription = this.durationObserver.subscribe(() => {
       const diff = preciseDiff(moment(time), moment(Date.now()), true);
 
-      this.year = diff.years;
-      this.month = diff.months;
-      this.day = diff.days;
-      this.hour = diff.hours;
-      this.minute = diff.minutes;
-      this.second = diff.seconds;
+      this.year = diff.years < 10 ? `0${diff.years}` : `${diff.years}`;
+      this.month = diff.months < 10 ? `0${diff.months}` : `${diff.months}`;
+      this.day = diff.days < 10 ? `0${diff.days}` : `${diff.days}`;
+      this.hour = diff.hours < 10 ? `0${diff.hours}` : `${diff.hours}`;
+      this.minute = diff.minutes < 10 ? `0${diff.minutes}` : `${diff.minutes}`;
+      this.second = diff.seconds < 10 ? `0${diff.seconds}` : `${diff.seconds}`;
     });
   }
 
