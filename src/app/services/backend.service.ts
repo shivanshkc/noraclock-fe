@@ -18,8 +18,6 @@ export class BackendService {
   constructor(private http: HttpClient, private auth: AuthService) {}
 
   public async getNoraTime(password: string): Promise<any> {
-    await this.sleep(2);
-
     const endpoint = `${configs.api.address}/${configs.api.time}`;
 
     try {
@@ -44,8 +42,6 @@ export class BackendService {
   }
 
   public async getMemories(queries: { [key: string]: any }): Promise<any> {
-    await this.sleep(2);
-
     const endpoint = `${configs.api.address}/${configs.api.memory}`;
     const password = this.auth.getPassword();
 
@@ -71,8 +67,6 @@ export class BackendService {
   }
 
   public async getMemoryByID(memoryID: string): Promise<any> {
-    await this.sleep(2);
-
     const endpoint = `${configs.api.address}/${configs.api.memory}/${memoryID}`;
     const password = this.auth.getPassword();
 
@@ -101,8 +95,6 @@ export class BackendService {
   }
 
   public async createMemory(title: string, body: string): Promise<any> {
-    await this.sleep(2);
-
     const endpoint = `${configs.api.address}/${configs.api.memory}`;
     const password = this.auth.getPassword();
 
@@ -122,8 +114,6 @@ export class BackendService {
   }
 
   public async updateMemory(memoryID: string, updates: any): Promise<any> {
-    await this.sleep(2);
-
     const endpoint = `${configs.api.address}/${configs.api.memory}/${memoryID}`;
     const password = this.auth.getPassword();
 
@@ -146,8 +136,6 @@ export class BackendService {
   }
 
   public async deleteMemory(memoryID: string): Promise<any> {
-    await this.sleep(2);
-
     const endpoint = `${configs.api.address}/${configs.api.memory}/${memoryID}`;
     const password = this.auth.getPassword();
 
@@ -175,9 +163,5 @@ export class BackendService {
       throw unexpectedError;
     }
     return customCode;
-  }
-
-  private async sleep(sec: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, sec * 1000));
   }
 }
