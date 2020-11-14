@@ -1,6 +1,6 @@
 {
   "api": {
-    "address": "http://noraclock.com",
+    "address": "http://noraclock.com:9600",
     "time": "api/noraAccess/time",
     "memory": "api/noraAccess/memory"
   },
