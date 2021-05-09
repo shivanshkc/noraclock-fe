@@ -55,7 +55,7 @@ export class MemoriesComponent implements OnInit {
           id: entry.id,
           index: offset + index + 1,
           title: entry.title,
-          age: new Date(entry.createdAt),
+          age: new Date(entry.doc_created_at),
         };
       });
 

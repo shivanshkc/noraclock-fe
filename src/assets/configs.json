@@ -1,6 +1,6 @@
 {
   "api": {
-    "address": "http://api.noraclock.com",
+    "address": "http://www.noraclock.com/api",
     "time": "noraAccess/time",
     "memory": "noraAccess/memory"
   },
@@ -15,7 +15,8 @@
       "Since you said 11.6 Km/s...",
       "Hey, Kushina.",
       "Let's go to the Vintage Inn...",
-      "Our Golden Summertime..."
+      "Our Golden Summertime...",
+      "The One Rose in my garden..."
     ]
   }
 }
